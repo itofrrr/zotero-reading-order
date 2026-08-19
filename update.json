@@ -5,7 +5,7 @@
         {
           "version": "5.2.0",
           "update_link": "https://github.com/itofrrr/zotero-reading-order/releases/download/v5.2.0/reading-order.xpi",
-          "update_hash": "sha256:2d450fa447a4faec1f0f3d73f3a206c6efa86ffe1b139b608368248cfaa9f468",
+          "update_hash": "sha256:e93a9f969fac47cb5d3898f2ba4b5c332875ac2d37f3837f1fccf79e84c35418",
           "applications": {
             "zotero": {
               "strict_min_version": "7.0.9.999",
