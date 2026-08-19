@@ -1,4 +1,3 @@
-// Reading Order Plugin — single file, no external script loading
 var ReadingOrderPlugin;
 
 const FIELD_PREFIX = "readingOrder: ";
@@ -14,7 +13,6 @@ function startup({ id, version, rootURI }, reason) {
     init() {
       if (this.initialized) return;
       this.initialized = true;
-      Zotero.debug("[ReadingOrder] init running");
       this._registerColumn();
     },
 
@@ -33,8 +31,6 @@ function startup({ id, version, rootURI }, reason) {
             }
             return "";
           },
-          width:    "70",
-          minWidth: "40",
         });
         Zotero.debug("[ReadingOrder] column registered OK");
       } catch(e) {
@@ -117,7 +113,6 @@ function startup({ id, version, rootURI }, reason) {
 
   ReadingOrderPlugin.init();
   ReadingOrderPlugin.addToAllWindows();
-  Zotero.debug("[ReadingOrder] startup complete, initialized=" + ReadingOrderPlugin.initialized);
 }
 
 function shutdown({ id, version, rootURI }, reason) {

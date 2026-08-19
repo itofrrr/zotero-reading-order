@@ -76,3 +76,12 @@ This means the data is part of your Zotero library, syncs via Zotero Sync, and i
 | 8.x | ✅ |
 | 9.x | ✅ (tested on 9.0.2, Linux Flatpak) |
 
+## What was learned building this
+
+Zotero 9.0.2 is strict about plugin manifests:
+- `applications.zotero.update_url` is **required**
+- `applications.zotero.strict_max_version` is **required** — use `"9.0.*"` not `"9.*"`
+- `applications.zotero.strict_min_version` — use `"7.0.9.999"`
+- `browser_specific_settings.gecko` should also be present
+- Column `width` and `minWidth` options must be **omitted** (they cause type errors depending on version)
+- `startup()` must define and initialize the plugin object directly — do not use `Services.scriptloader.loadSubScript` for the main code, as the Flatpak sandbox can block it
