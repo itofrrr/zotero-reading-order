@@ -3,6 +3,17 @@
     "reading-order@ifp.dev": {
       "updates": [
         {
+          "version": "5.2.1",
+          "update_link": "https://github.com/itofrrr/zotero-reading-order/releases/download/v5.2.1/reading-order.xpi",
+          "update_hash": "sha256:da3c374fc03b005680516666d72e0248628d96dbc9453e5a4254cb1afe5a59ca",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "7.0.9.999",
+              "strict_max_version": "10.0.*"
+            }
+          }
+        },
+        {
           "version": "5.2.0",
           "update_link": "https://github.com/itofrrr/zotero-reading-order/releases/download/v5.2.0/reading-order.xpi",
           "update_hash": "sha256:f16276702ede36b112d4195dc058eb5af9b24c5bc230fbac29827ca9762dcbd2",

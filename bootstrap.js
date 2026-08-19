@@ -59,7 +59,7 @@ function startup({ id, version, rootURI }, reason) {
       menu.appendChild(sep);
       const item = doc.createXULElement("menuitem");
       item.id = MENUITEM_ID;
-      item.setAttribute("label", "Set Reading Order…");
+      item.setAttribute("label", "Set Reading Order (v5.2.1)…");
       item.addEventListener("command", () => this._promptSetOrder(win));
       menu.appendChild(item);
     },
