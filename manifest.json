@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Reading Order",
-  "version": "5.3.0",
+  "version": "5.2.0",
   "description": "Adds a Reading Order column to the Zotero items list.",
   "author": "Italo Ferreira Pereira",
   "applications": {
@@ -9,7 +9,7 @@
       "id": "reading-order@ifp.dev",
       "update_url": "https://raw.githubusercontent.com/itofrrr/zotero-reading-order/main/update.json",
       "strict_min_version": "7.0.9.999",
-      "strict_max_version": "9.0.*"
+      "strict_max_version": "10.0.*"
     }
   }
 }
