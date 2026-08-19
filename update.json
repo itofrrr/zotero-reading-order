@@ -1,0 +1,19 @@
+{
+  "addons": {
+    "reading-order@ifp.dev": {
+      "updates": [
+        {
+          "version": "5.2.0",
+          "update_link": "https://github.com/itofrrr/zotero-reading-order/releases/download/v5.2.0/reading-order.xpi",
+          "update_hash": "sha256:2d450fa447a4faec1f0f3d73f3a206c6efa86ffe1b139b608368248cfaa9f468",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "7.0.9.999",
+              "strict_max_version": "10.0.*"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
