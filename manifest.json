@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Reading Order",
-  "version": "5.2.5",
+  "version": "5.3.0",
   "description": "Adds a Reading Order column to the Zotero items list.",
   "author": "Italo Ferreira Pereira",
   "applications": {

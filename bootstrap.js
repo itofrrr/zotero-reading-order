@@ -1,10 +1,11 @@
 // Reading Order Plugin — single file, no external script loading
 var ReadingOrderPlugin;
 
-const FIELD_PREFIX = "readingOrder: ";
-const PLUGIN_ID    = "reading-order@ifp.dev";
-const MENUITEM_ID  = "reading-order-menuitem";
-const SEP_ID       = "reading-order-sep";
+const FIELD_PREFIX  = "readingOrder: ";
+const PLUGIN_ID     = "reading-order@ifp.dev";
+const MENUITEM_ID   = "reading-order-menuitem";
+const AUTONUM_ID    = "reading-order-autonum-menuitem";
+const SEP_ID        = "reading-order-sep";
 
 function startup({ id, version, rootURI }, reason) {
   Zotero.debug("[ReadingOrder] startup called");
@@ -59,9 +60,14 @@ function startup({ id, version, rootURI }, reason) {
       menu.appendChild(sep);
       const item = doc.createXULElement("menuitem");
       item.id = MENUITEM_ID;
-      item.setAttribute("label", "Set Reading Order (v5.2.1)…");
+      item.setAttribute("label", "Set Reading Order…");
       item.addEventListener("command", () => this._promptSetOrder(win));
       menu.appendChild(item);
+      const autonum = doc.createXULElement("menuitem");
+      autonum.id = AUTONUM_ID;
+      autonum.setAttribute("label", "Auto-Number Reading Order (list order)");
+      autonum.addEventListener("command", () => this._autoNumberSelected(win));
+      menu.appendChild(autonum);
     },
 
     removeFromAllWindows() {
@@ -75,6 +81,7 @@ function startup({ id, version, rootURI }, reason) {
       const doc = win.document;
       if (!doc) return;
       doc.getElementById(MENUITEM_ID)?.remove();
+      doc.getElementById(AUTONUM_ID)?.remove();
       doc.getElementById(SEP_ID)?.remove();
     },
 
@@ -115,6 +122,33 @@ function startup({ id, version, rootURI }, reason) {
         await this._setOrder(item, result.value.trim());
       }
       Zotero.getActiveZoteroPane().itemsView.refreshAndMaintainSelection();
+    },
+    async _autoNumberSelected(win) {
+      const pane = Zotero.getActiveZoteroPane();
+      const selectedIDs = new Set(pane.getSelectedItems(true));
+      if (!selectedIDs.size) return;
+
+      // getSortedItems() returns items in current display order, filtered
+      // to the current view; intersect with the selection so numbering
+      // follows what the user sees on screen, top to bottom.
+      const sorted = pane.itemsView.getSortedItems()
+        .filter(item => selectedIDs.has(item.id) && item.isRegularItem());
+
+      if (!sorted.length) return;
+
+      const ok = Services.prompt.confirm(
+        win,
+        "Auto-Number Reading Order",
+        `Number ${sorted.length} selected item(s) 01, 02, 03… in the order shown in the list?`
+      );
+      if (!ok) return;
+
+      let n = 1;
+      for (const item of sorted) {
+        await this._setOrder(item, String(n).padStart(2, "0"));
+        n++;
+      }
+      pane.itemsView.refreshAndMaintainSelection();
     },
   };
 
