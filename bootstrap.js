@@ -22,7 +22,7 @@ function startup({ id, version, rootURI }, reason) {
       try {
         await Zotero.ItemTreeManager.registerColumn({
           dataKey:      "readingOrder",
-          label:        "Reading Order",
+          label:        "Order",
           pluginID:     PLUGIN_ID,
           dataProvider: (item) => {
             const extra = item.getField("extra") || "";
