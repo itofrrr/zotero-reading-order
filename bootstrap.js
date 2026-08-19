@@ -34,7 +34,7 @@ function startup({ id, version, rootURI }, reason) {
             return "";
           },
           width:    "70",
-          minWidth: "40",
+          minWidth: 40,
         });
         Zotero.debug("[ReadingOrder] column registered OK");
       } catch(e) {
