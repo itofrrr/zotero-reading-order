@@ -1,6 +1,6 @@
 # Reading Order — Zotero Plugin
 
-A minimal plugin for Zotero 7/8/9 that adds a **Reading Order** column to the items list, letting you assign and display a numeric reading priority for your papers.
+A minimal plugin for Zotero 7/8/9/10 that adds a **Reading Order** column to the items list, letting you assign and display a numeric reading priority for your papers.
 
 ## Features
 
@@ -8,11 +8,13 @@ A minimal plugin for Zotero 7/8/9 that adds a **Reading Order** column to the it
 - Right-click any item → **Set Reading Order…** to assign a value
 - Supports bulk assignment: select multiple items, right-click, set the same value for all
 - Data stored in each item's **Extra** field as `readingOrder: 01`, so it syncs with Zotero and is never lost
-- Fully compatible with Zotero 7, 8, and 9
+- Undo/redo support for reading order edits (Zotero 10+)
+- Auto-updates: once installed, new versions are offered automatically via Zotero's built-in update check
+- Fully compatible with Zotero 7, 8, 9, and 10
 
 ## Installation
 
-1. Download `reading-order.xpi` from the [releases page](../../releases)
+1. Download `reading-order.xpi` from the [releases page](https://github.com/itofrrr/zotero-reading-order/releases)
 2. In Zotero: **Tools → Add-ons → gear icon → Install Add-on From File…**
 3. Select the `.xpi` file and restart Zotero
 4. Right-click any column header → enable **Reading Order**
@@ -20,12 +22,14 @@ A minimal plugin for Zotero 7/8/9 that adds a **Reading Order** column to the it
 ## Usage
 
 ### Setting order via right-click menu
+
 Right-click one or more items → **Set Reading Order…** → enter a number (e.g. `01`, `02`, `03`)
 
 ### Setting order in bulk via JavaScript
+
 Open **Tools → Developer → Run JavaScript** and paste:
 
-```javascript
+```js
 const orders = [
   ["Author", "Year", "keyword in title", "01"],
   // add more rows...
@@ -58,30 +62,28 @@ return `Done: ${matched} matched, ${skipped} not found.`;
 ```
 
 ### Tip: use zero-padded numbers
+
 Use `01`, `02`, `03`… instead of `1`, `2`, `3`… so the column sorts correctly when you have 10 or more items.
 
 ## How data is stored
 
 Values are stored as a line in each item's **Extra** field:
+
 ```
 readingOrder: 01
 ```
+
 This means the data is part of your Zotero library, syncs via Zotero Sync, and is preserved if you export/import your library.
+
+## Updates
+
+The plugin checks for updates automatically through Zotero's standard update mechanism (**Tools → Add-ons → gear icon → Check for Updates**). No manual reinstall needed for future releases.
 
 ## Compatibility
 
-| Zotero version | Status |
-|---|---|
-| 7.x | ✅ |
-| 8.x | ✅ |
-| 9.x | ✅ (tested on 9.0.2, Linux Flatpak) |
-
-## What was learned building this
-
-Zotero 9.0.2 is strict about plugin manifests:
-- `applications.zotero.update_url` is **required**
-- `applications.zotero.strict_max_version` is **required** — use `"9.0.*"` not `"9.*"`
-- `applications.zotero.strict_min_version` — use `"7.0.9.999"`
-- `browser_specific_settings.gecko` should also be present
-- Column `width` and `minWidth` options must be **omitted** (they cause type errors depending on version)
-- `startup()` must define and initialize the plugin object directly — do not use `Services.scriptloader.loadSubScript` for the main code, as the Flatpak sandbox can block it
+| Zotero version | Status                             |
+| --------------- | ----------------------------------- |
+| 7.x             | ✅                                   |
+| 8.x             | ✅                                   |
+| 9.x             | ✅ (tested on 9.0.2, Linux Flatpak) |
+| 10.x            | ✅ (tested on 10.0, Linux Flatpak)  |
